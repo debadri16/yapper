@@ -1,3 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+
 .bgDiv {
     height: 100vh;
     display: flex;
@@ -8,8 +15,125 @@
 
 .loginContainer {
     height: 70%;
-    width: 40%;
+    width: 30%;
     background: #e8e8e8;
-    box-shadow:  24px 24px 51px #cacaca,
-             -24px -24px 51px #ffffff;
+    box-shadow: 24px 24px 51px #cacaca,
+        -24px -24px 51px #ffffff;
+}
+
+.login-detils {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px 20px 0px;
+}
+
+.login-details-grp {
+    display: block;
+}
+
+.img-button {
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    width: 80px;
+    height: 80px;
+    margin-left: 17px;
+    box-shadow: -5px -5px 10px #a19898, 5px 5px 10px #52595c;
+    margin-bottom: 50px;
+    margin-left: 100px;
+}
+
+.img-button :hover {
+    width: 90px;
+    height: 90px;
+    box-shadow: -5px -5px 10px #a19898, 5px 5px 10px #52595c;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.button-create,
+.button-join {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 40px;
+    border: none;
+    outline: none;
+    background: rgb(0, 102, 255);
+    box-shadow: -5px -5px 10px #fffefe, 5px 5px 10px #7d8387;;
+    font-family: sans-serif;
+    color: white;
+    cursor: pointer;
+    margin-top: 50px;
+    margin-left: 70px;
+}
+
+.btn-grp :hover {
+    background: rgb(1, 76, 189);
+}
+
+.input-data {
+    height: 40px;
+    width: 100%;
+    position: relative;
+}
+
+ .input-data input {
+    height: 100%;
+    width: 300px;
+    border: none;
+    background-color: #e8e8e8;
+    /* font-size: 17px; */
+    border-bottom: 2px solid silver;
+}
+
+.input-data input:focus~label,
+.input-data input:valid~label {
+    transform: translateY(-20px);
+    /* font-size: 15px; */
+    color: rgb(0, 102, 255);
+}
+
+.input-data label {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: grey;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.input-data .underline {
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    bottom: 0;
+}
+
+.input-data .underline:before {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    background: rgb(0, 102, 255);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.input-data input:focus~.underline:before,
+.input-data input:valid~.underline:before {
+    transform: scaleX(1);
+}
+
+.error-msg{
+    color: rgb(219, 2, 2);
 }
