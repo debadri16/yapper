@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import TextField from '@mui/material/TextField';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
@@ -8,6 +8,7 @@ import './Home.css';
 import UpdateAvatarDialog from "../Dialogs/UpdateAvatarDialog";
 import { avatarsList } from "../../Common/AvatarsList";
 import defaultAvatar from "../../assets/avatars/01.png";
+import { SocketContext } from "../../App";
 
 function Home() {
 
@@ -18,6 +19,14 @@ function Home() {
     // persisting index of avatar from dialog
     const [selectedAvatarIndex, setAvatarIndex] = useState(0);
 
+    const socket = useContext(SocketContext);
+
+    useEffect(() => {
+        // send message to server
+        socket.emit("login", {name: "Medsieeeee", room: "Ramrajatala"}, err => {
+            console.log(err);
+        });
+    }, []);
 
     let handleNameChange = (event) => {
         setName(event.target.value);
@@ -63,17 +72,17 @@ function Home() {
                 </div>
                 <div className='homeBtnDiv'>
                     <button className='homeBtn' onClick={create_room}>Create Room
-                        <AddCircleOutlineOutlinedIcon className="btnIcon"/>
+                        <AddCircleOutlineOutlinedIcon className="btnIcon" />
                     </button>
                 </div>
                 <div className='homeBtnDiv'>
                     <button className='homeBtn' onClick={join_room}>
                         <span>Join Room</span>
-                        <GroupAddOutlinedIcon className="btnIcon"/>
+                        <GroupAddOutlinedIcon className="btnIcon" />
                     </button>
                 </div>
-                
-                
+
+
                 {/* <div className='login-detils'>
                     <div className='login-details-grp'>
                         <div>

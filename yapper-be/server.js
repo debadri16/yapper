@@ -3,18 +3,31 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
 });
 
-app.get('/socket.io/socket.io.js', (req, res) => {
-  res.sendFile(__dirname + '/node_modules/socket.io/client-dist/socket.io.js');
+// check for auth
+io.use((socket, next) => {
+  // get the token from client
+  const token = socket.handshake.auth.token;
+
+  if (token === 'j6k^j,.4m5') {
+    next();
+  } else {
+    next(new Error("Unauthorized"));
+  }
 });
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+
+  socket.on("login", users => {
+    console.log(users);
+  });
 
   // disconnect event listener
   socket.on('disconnect', () => {
@@ -22,11 +35,11 @@ io.on('connection', (socket) => {
   });
 
   // input event listener
-  socket.on('chat message',(msg) => {
+  socket.on('chat message', (msg) => {
     console.log(msg)
   })
 });
 
-server.listen(3000, () => {
-  console.log('listening on *:3000');
+server.listen(5000, () => {
+  console.log('listening on *:5000');
 });
