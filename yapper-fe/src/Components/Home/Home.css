@@ -75,30 +75,6 @@
     padding: 10px;
 }
 
-/* .img-button {
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    width: 80px;
-    height: 80px;
-    margin-left: 17px;
-    box-shadow: -5px -5px 10px #a19898, 5px 5px 10px #52595c;
-    margin-bottom: 50px;
-    margin-left: 100px;
-}
-
-.img-button :hover {
-    width: 90px;
-    height: 90px;
-    box-shadow: -5px -5px 10px #a19898, 5px 5px 10px #52595c;
-}
-
-.avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-} */
-
 .homeBtnDiv {
     padding: 10px;
 }
@@ -130,61 +106,43 @@
     margin-left: 3%;
 }
 
-/* .input-data {
-    height: 40px;
-    width: 100%;
-    position: relative;
-} */
+.joinRoomDiv{
+    margin-top: 10px;
+}
 
- /* .input-data input {
-    height: 100%;
-    width: 300px;
+.join_btn_grp{
+    display: flex;
+    justify-content: space-between; 
+    
+}
+
+.cancel_btn, .next_btn{
+    border-radius: 50%;
+    cursor: pointer;
     border: none;
-    background-color: #e8e8e8;
-    border-bottom: 2px solid silver;
-} */
-
-/* .input-data input:focus~label,
-.input-data input:valid~label {
-    transform: translateY(-20px);
-    color: rgb(0, 102, 255);
+    outline: none;
+    width: 35px;
+    height: 35px;
+    background: #e8e8e8;
+    box-shadow: -2px -2px 3px #ffffff, 2px 2px 3px #b7bec3;
+    transition: box-shadow ease .3s;
+    margin-top: 10px;
 }
 
-.input-data label {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    color: grey;
-    pointer-events: none;
-    transition: all 0.3s ease;
+.cancel_btn:hover, .next_btn:hover{
+    box-shadow: -4px -4px 4px #fffefe, 4px 4px 4px #b7bec3;
 }
 
-.input-data .underline {
-    position: absolute;
-    height: 2px;
-    width: 100%;
-    bottom: 0;
+.cancel_btn{
+    color: rgb(215 91 91);
+    margin-left: 10px;
+    size: 10px;
 }
 
-.input-data .underline:before {
-    position: absolute;
-    content: "";
-    height: 100%;
-    width: 100%;
-    background: rgb(0, 102, 255);
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 0.3s ease;
+.next_btn{
+    color: #2ab296;
+    margin-right: 10px;
 }
-
-.input-data input:focus~.underline:before,
-.input-data input:valid~.underline:before {
-    transform: scaleX(1);
-}
-
-.error-msg{
-    color: rgb(219, 2, 2);
-} */
 
 /* For mobile phones: */
 @media only screen and (max-width: 768px) {

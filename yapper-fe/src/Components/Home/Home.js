@@ -1,55 +1,41 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import TextField from '@mui/material/TextField';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
+import Send from '@mui/icons-material/Send';
+import Clear from '@mui/icons-material/Clear';
 
 import './Home.css';
 import UpdateAvatarDialog from "../Dialogs/UpdateAvatarDialog";
 import { avatarsList } from "../../Common/AvatarsList";
 import defaultAvatar from "../../assets/avatars/01.png";
-import { SocketContext } from "../../App";
 
 function Home() {
 
-    const [name, setName] = useState("");
-    const [error, setError] = useState(false);
     const [editAvatar, setEditAvatar] = useState(false);
 
     // persisting index of avatar from dialog
     const [selectedAvatarIndex, setAvatarIndex] = useState(0);
-
-    const socket = useContext(SocketContext);
-
-    useEffect(() => {
-        // send message to server
-        socket.emit("login", {name: "Medsieeeee", room: "Ramrajatala"}, err => {
-            console.log(err);
-        });
-    }, []);
-
-    let handleNameChange = (event) => {
-        setName(event.target.value);
-        setError(false);
-    };
+    const [joinRoom, setJoinRoom] = useState(false);
+    const [roomID, setRoomID] = useState('');
 
     let create_room = () => {
-        if (!name) {
-            setError(true);
-            console.log('no name')
 
-        } else {
-            console.log('create')
-        }
+        console.log('create')
+
     }
 
     let join_room = () => {
-        if (!name) {
-            setError(true);
-            console.log('no name')
+        console.log('join');
+        setJoinRoom(true);
+        setRoomID('')
+    }
 
-        } else {
-            console.log('join')
+    let handleRoomID = (e) => {
+        const pattern = /^[0-9\b]+$/;
+        if (e.target.value === '' || pattern.test(e.target.value)) {
+            setRoomID(e.target.value);
         }
     }
 
@@ -75,34 +61,26 @@ function Home() {
                         <AddCircleOutlineOutlinedIcon className="btnIcon" />
                     </button>
                 </div>
-                <div className='homeBtnDiv'>
-                    <button className='homeBtn' onClick={join_room}>
-                        <span>Join Room</span>
-                        <GroupAddOutlinedIcon className="btnIcon" />
-                    </button>
-                </div>
-
-
-                {/* <div className='login-detils'>
-                    <div className='login-details-grp'>
-                        <div>
-                            <div>
-                                <div className='input-data'>
-                                    <input type="text" onChange={handleNameChange} required />
-                                    <div className='underline'></div>
-                                    <label>Username</label>
-                                </div>
-                                <div> {error ? <small className="error-msg">Username field is required to create/join room</small> : null}</div>
-                            </div>
-                        </div>
-                        <div className='button-container'>
-                            <div className='btn-grp'>
-                                <button className='button-create' onClick={create_room}>Create Room</button>
-                                <button className='button-join' onClick={join_room}>Join Room</button>
-                            </div>
+                {!joinRoom &&
+                    <div className='homeBtnDiv'>
+                        <button className='homeBtn' onClick={join_room}>
+                            <span>Join Room</span>
+                            <GroupAddOutlinedIcon className="btnIcon" />
+                        </button>
+                    </div>
+                }
+                {joinRoom &&
+                    <div className="joinRoomDiv">
+                        <TextField error={false} required id="standard-basic" label="Room ID" variant="standard"
+                            value={roomID}
+                            inputProps={{ maxLength: 6 }}
+                            onChange={handleRoomID} />
+                        <div className='join_btn_grp'>
+                            <button className="cancel_btn" onClick={() => setJoinRoom(false)}><Clear /></button>
+                            <button className="next_btn"><Send /></button>
                         </div>
                     </div>
-                </div> */}
+                }
             </div>
         </div>
     );
