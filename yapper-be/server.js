@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
   console.log('a user connected');
 
   socket.on("login", users => {
-    console.log(users);
+    console.log(socket.id);
   });
 
   // disconnect event listener

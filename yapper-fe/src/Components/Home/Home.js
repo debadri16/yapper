@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import TextField from '@mui/material/TextField';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
@@ -10,6 +10,7 @@ import './Home.css';
 import UpdateAvatarDialog from "../Dialogs/UpdateAvatarDialog";
 import { avatarsList } from "../../Common/AvatarsList";
 import defaultAvatar from "../../assets/avatars/01.png";
+import { SocketContext } from "../../App";
 
 function Home() {
 
@@ -19,6 +20,15 @@ function Home() {
     const [selectedAvatarIndex, setAvatarIndex] = useState(0);
     const [joinRoom, setJoinRoom] = useState(false);
     const [roomID, setRoomID] = useState('');
+
+    const socket = useContext(SocketContext);
+
+    useEffect(() => {
+        // send message to server
+        socket.emit("login", {name: "Medsieeeee", room: "Ramrajatala"}, err => {
+            console.log(err);
+        });
+    }, []);
 
     let create_room = () => {
 
