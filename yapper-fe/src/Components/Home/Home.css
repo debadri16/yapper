@@ -107,13 +107,13 @@
 }
 
 .joinRoomDiv{
-    margin-top: 10px;
+    padding: 10px;
 }
 
 .join_btn_grp{
     display: flex;
     justify-content: space-between; 
-    
+    padding: 10px;
 }
 
 .cancel_btn, .next_btn{
@@ -126,7 +126,6 @@
     background: #e8e8e8;
     box-shadow: -2px -2px 3px #ffffff, 2px 2px 3px #b7bec3;
     transition: box-shadow ease .3s;
-    margin-top: 10px;
 }
 
 .cancel_btn:hover, .next_btn:hover{
@@ -135,13 +134,15 @@
 
 .cancel_btn{
     color: rgb(215 91 91);
-    margin-left: 10px;
     size: 10px;
+    /* padding-left: 3px; */
+    padding-top: 3px;
 }
 
 .next_btn{
     color: #2ab296;
-    margin-right: 10px;
+    padding-left: 3px;
+    padding-top: 3px;
 }
 
 /* For mobile phones: */
