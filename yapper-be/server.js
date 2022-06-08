@@ -9,6 +9,7 @@ const io = new Server(server, {
     methods: ["GET", "POST"]
   }
 });
+const { addUser, removeUser, getAllUsers } = require('./rooms');
 
 // check for auth
 io.use((socket, next) => {
@@ -25,8 +26,9 @@ io.use((socket, next) => {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  socket.on("login", users => {
-    console.log(socket.id);
+  socket.on("login", user => {
+    addUser(socket.id, user)
+    console.log(getAllUsers());
   });
 
   // disconnect event listener

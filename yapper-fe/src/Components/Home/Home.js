@@ -25,7 +25,7 @@ function Home() {
 
     useEffect(() => {
         // send message to server
-        socket.emit("login", {name: "Medsieeeee", room: "Ramrajatala"}, err => {
+        socket.emit("login", {userName: "Medsieeeee", room: "Ramrajatala", avatarIndex:0}, err => {
             console.log(err);
         });
     }, []);
