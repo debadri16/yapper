@@ -31,6 +31,11 @@ io.on('connection', (socket) => {
     console.log(getAllUsers());
   });
 
+  socket.on("create room", user => {
+    console.log('room created');
+    console.log(user);
+  });
+
   // disconnect event listener
   socket.on('disconnect', () => {
     console.log('user disconnected');

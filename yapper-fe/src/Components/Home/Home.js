@@ -31,9 +31,11 @@ function Home() {
     }, []);
 
     let create_room = () => {
-
         console.log('create')
-
+        let room_id = Math.random().toString(20).substring(2,7);
+        socket.emit("create room", {userName: "Medsieeeee", roomID: room_id, room: "Ramrajatala", avatarIndex:0}, err => {
+            console.log(err);
+        });
     }
 
     let join_room = () => {
@@ -43,7 +45,7 @@ function Home() {
     }
 
     let handleRoomID = (e) => {
-        const pattern = /^[0-9\b]+$/;
+        const pattern = /^[0-9a-z\b]+$/;
         if (e.target.value === '' || pattern.test(e.target.value)) {
             setRoomID(e.target.value);
         }
@@ -83,7 +85,7 @@ function Home() {
                     <div className="joinRoomDiv">
                         <TextField error={false} required id="standard-basic" label="Room ID" variant="standard"
                             value={roomID}
-                            inputProps={{ maxLength: 6 }}
+                            inputProps={{ maxLength: 5 }}
                             onChange={handleRoomID} />
                         <div className='join_btn_grp'>
                             <button className="cancel_btn" onClick={() => setJoinRoom(false)}><Clear /></button>
