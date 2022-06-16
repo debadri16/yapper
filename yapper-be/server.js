@@ -9,7 +9,7 @@ const io = new Server(server, {
     methods: ["GET", "POST"]
   }
 });
-const { addUser, removeUser, getAllUsers } = require('./rooms');
+const { addUser, removeUser, getUsers } = require('./rooms');
 
 // check for auth
 io.use((socket, next) => {
@@ -26,25 +26,28 @@ io.use((socket, next) => {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  socket.on("login", user => {
+  // will work for create and join
+  socket.on("enter room", user => {
     addUser(socket.id, user)
-    console.log(getAllUsers());
-  });
 
-  socket.on("create room", user => {
-    console.log('room created');
-    console.log(user);
+    // joining in the room
+    socket.join(user.room);
+
+    // send users data of that room to everyone in the room
+    io.in(user.room).emit('users', getUsers(user.room))
   });
 
   // disconnect event listener
   socket.on('disconnect', () => {
     console.log('user disconnected');
+    
+    // to leave from a room
+    // socket.leave(<room id>)
+    // remove the user from the room it is in
+    // hint: you might have to modify rooms.js
+
   });
 
-  // input event listener
-  socket.on('chat message', (msg) => {
-    console.log(msg)
-  })
 });
 
 server.listen(5000, () => {

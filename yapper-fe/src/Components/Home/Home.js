@@ -23,17 +23,16 @@ function Home() {
 
     const socket = useContext(SocketContext);
 
+    // will listen to server to get all users from the room when new user is added
     useEffect(() => {
-        // send message to server
-        socket.emit("login", {userName: "Medsieeeee", room: "Ramrajatala", avatarIndex:0}, err => {
-            console.log(err);
-        });
-    }, []);
+        socket.on("users", users => {
+            console.log(users)
+        })
+    })
 
     let create_room = () => {
-        console.log('create')
-        let room_id = Math.random().toString(20).substring(2,7);
-        socket.emit("create room", {userName: "Medsieeeee", roomID: room_id, room: "Ramrajatala", avatarIndex:0}, err => {
+        let room = Math.random().toString(20).substring(2, 7);
+        socket.emit("enter room", { userName: "Medsieeeee", room: room, avatarIndex: selectedAvatarIndex }, err => {
             console.log(err);
         });
     }

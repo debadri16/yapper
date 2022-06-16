@@ -1,19 +1,33 @@
 let rooms = {};
+// structure of rooms ////////
+// {
+//     room:{
+//         userId: {
+//             userName,
+//             avatarIndex
+//         }
+//     }
+// }
+//////////////////////////////
 
-const addUser = (userId, {room, userName, avatarIndex}) => {
-    rooms[userId] = {
-        room: room,
-        userName: userName,
-        avatarIndex: avatarIndex
-    };
+const addUser = (userId, { room, userName, avatarIndex }) => {
+
+    rooms[room] = {
+        ...rooms[room],
+        [userId]: {
+            userName: userName,
+            avatarIndex: avatarIndex
+        }
+    }
 }
 
-const removeUser = (userId) => {
-    delete rooms[userId];
+const removeUser = (room, userId) => {
+    delete rooms[room][userId];
 }
 
-const getAllUsers = () => {
-    return rooms;
+const getUsers = (room) => {
+    console.log(rooms);
+    return rooms[room];
 }
 
-module.exports = {addUser, removeUser, getAllUsers};
+module.exports = { addUser, removeUser, getUsers };
