@@ -9,7 +9,7 @@ const io = new Server(server, {
     methods: ["GET", "POST"]
   }
 });
-const { addUser, removeUser, getUsers } = require('./rooms');
+const { addUser, removeUser, getUsers, disconnectUser, banUser, getUserDetail } = require('./rooms');
 
 // check for auth
 io.use((socket, next) => {
@@ -37,15 +37,47 @@ io.on('connection', (socket) => {
     io.in(user.room).emit('users', getUsers(user.room))
   });
 
-  // disconnect event listener
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-    
-    // to leave from a room
-    // socket.leave(<room id>)
-    // remove the user from the room it is in
-    // hint: you might have to modify rooms.js
+  // for explicit leaving
+  socket.on("leave room", room => {
+    removeUser(room, socket.id);
+    socket.leave(room);
 
+    // inform everyone else
+    socket.in(room).emit('user left', getUserDetail(room, socket.id));
+  });
+
+  // getting kicked
+  socket.on("kick user", (room, userId) => {
+    removeUser(room, userId);
+    // need to test this line
+    socket.id = userId;
+    socket.leave(room);
+
+    // inform everyone else
+    socket.in(room).emit('user kicked', getUserDetail(room, socket.id));
+  });
+
+   // getting banned
+   socket.on("ban user", (room, userId) => {
+    banUser(room, userId);
+    // need to test this line
+    socket.id = userId;
+    socket.leave(room);
+
+    // inform everyone else
+    socket.in(room).emit('user banned', getUserDetail(room, socket.id));
+  });
+
+  // disconnect event listener
+  // socket room will be automatically be left when this event is emitted
+  socket.on('disconnect', () => {
+    // just clearing custom objects
+    let room = disconnectUser(socket.id);
+
+    // inform everyone else
+    socket.in(room).emit('user left', getUserDetail(room, socket.id));
+
+    console.log('user disconnected');
   });
 
 });
