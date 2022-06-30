@@ -102,6 +102,11 @@
     box-shadow: -4px -4px 4px #fffefe, 4px 4px 4px #bec8ce;
 }
 
+.homeBtn:disabled {
+    opacity: 0.5;
+    box-shadow: -4px -4px 4px #fffefe, 4px 4px 4px #bec8ce;
+}
+
 .btnIcon {
     margin-left: 3%;
 }
@@ -143,6 +148,11 @@
     color: #2ab296;
     padding-left: 3px;
     padding-top: 3px;
+}
+
+.next_btn:disabled{
+    opacity: 0.5;
+    box-shadow: -2px -2px 3px #ffffff, 2px 2px 3px #b7bec3;
 }
 
 /* For mobile phones: */

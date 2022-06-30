@@ -5,6 +5,7 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import Send from '@mui/icons-material/Send';
 import Clear from '@mui/icons-material/Clear';
+import { useNavigate } from "react-router-dom";
 
 import './Home.css';
 import UpdateAvatarDialog from "../Dialogs/UpdateAvatarDialog";
@@ -20,8 +21,11 @@ function Home() {
     const [selectedAvatarIndex, setAvatarIndex] = useState(0);
     const [joinRoom, setJoinRoom] = useState(false);
     const [roomID, setRoomID] = useState('');
+    const [isHomeBtnDisabled, setHomeBtnDisable] = useState(true);
+    const [isJoinBtnDisabled, setJoinBtnDisable] = useState(true);
 
     const socket = useContext(SocketContext);
+    const navigate = useNavigate();
 
     // will listen to server to get all users from the room when new user is added
     useEffect(() => {
@@ -34,13 +38,14 @@ function Home() {
         let room = Math.random().toString(20).substring(2, 7);
         socket.emit("enter room", { userName: "Medsieeeee", room: room, avatarIndex: selectedAvatarIndex }, err => {
             console.log(err);
-        });
+        });   
+        navigate("/room");
     }
 
     let join_room = () => {
         console.log('join');
         setJoinRoom(true);
-        setRoomID('')
+        setRoomID('');
     }
 
     let handleRoomID = (e) => {
@@ -48,6 +53,11 @@ function Home() {
         if (e.target.value === '' || pattern.test(e.target.value)) {
             setRoomID(e.target.value);
         }
+        (e.target.value.length != 5) ? setJoinBtnDisable(true) : setJoinBtnDisable(false);
+    }
+
+    let handleUserName = (e) => {
+        (!e.target.value.replace(/\s/g, '').length) ? setHomeBtnDisable(true) : setHomeBtnDisable(false);
     }
 
     return (
@@ -65,16 +75,18 @@ function Home() {
                     <ModeEditOutlineOutlinedIcon className="avatarEditBtn" />
                 </div>
                 <div className="userNameContainer">
-                    <TextField error={false} required id="standard-basic" label="Display Name" variant="standard" />
+                    <TextField error={false} required id="standard-basic" label="Display Name" variant="standard"
+                        inputProps={{ maxLength: 20 }}
+                        onChange={handleUserName} />
                 </div>
                 <div className='homeBtnDiv'>
-                    <button className='homeBtn' onClick={create_room}>Create Room
+                    <button className='homeBtn' onClick={create_room} disabled={isHomeBtnDisabled}>Create Room
                         <AddCircleOutlineOutlinedIcon className="btnIcon" />
                     </button>
                 </div>
                 {!joinRoom &&
                     <div className='homeBtnDiv'>
-                        <button className='homeBtn' onClick={join_room}>
+                        <button className='homeBtn' onClick={join_room} disabled={isHomeBtnDisabled}>
                             <span>Join Room</span>
                             <GroupAddOutlinedIcon className="btnIcon" />
                         </button>
@@ -87,8 +99,8 @@ function Home() {
                             inputProps={{ maxLength: 5 }}
                             onChange={handleRoomID} />
                         <div className='join_btn_grp'>
-                            <button className="cancel_btn" onClick={() => setJoinRoom(false)}><Clear /></button>
-                            <button className="next_btn"><Send /></button>
+                            <button className="cancel_btn" onClick={() => {setJoinRoom(false); setJoinBtnDisable(true)}}><Clear /></button>
+                            <button className="next_btn" onClick={() => navigate("/room")} disabled={isJoinBtnDisabled}><Send /></button>
                         </div>
                     </div>
                 }
