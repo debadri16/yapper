@@ -41,16 +41,16 @@ const addUser = (userId, { room, userName, avatarIndex }) => {
     }
 }
 
-const roomsCleanup = (room)=>{
+const roomsCleanup = (room) => {
     // delete empty room
-    if(Object.keys(rooms[room]).length === 0){
+    if (Object.keys(rooms[room]).length === 0) {
         delete rooms[room];
     }
 }
 
-const usersCleanup = (userId)=>{
+const usersCleanup = (userId) => {
     // delete empty users
-    if(Object.keys(users[userId]).length === 0){
+    if (Object.keys(users[userId]).length === 0) {
         delete users[userId];
     }
 }
@@ -59,7 +59,7 @@ const removeUser = (room, userId) => {
     delete rooms[room][userId];
 
     // remove user only if not banned
-    if(!users[userId][room].isBanned)
+    if (!users[userId][room].isBanned)
         delete users[userId][room];
 
     roomsCleanup(room);
@@ -71,10 +71,15 @@ const removeUser = (room, userId) => {
 const disconnectUser = (userId) => {
     // one userId can enter one room only at a time
     // since different tab will create new userId (socket.id)
-    let room = Object.keys(users[userId])[0];
 
-    removeUser(room, userId);
-    return room;
+    // if someone reloads the page or clicks back button then the socket.id will change
+    if (users[userId] !== undefined) {
+        let room = Object.keys(users[userId])[0];
+
+        removeUser(room, userId);
+        return room;
+    }
+    return null;
 }
 
 const banUser = (room, userId) => {

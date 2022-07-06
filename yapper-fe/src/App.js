@@ -1,10 +1,10 @@
 import Home from "./Components/Home/Home";
-import Room from "./Components/Room/Room";
 import config from "./environment/config.json";
 import io from 'socket.io-client';
 
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./Components/Dashboard/Dashboard";
 
 const SocketContext = React.createContext();
 
@@ -32,7 +32,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/room" element={<Room />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </SocketContext.Provider>

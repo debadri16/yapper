@@ -23,6 +23,7 @@ function Home() {
     const [roomID, setRoomID] = useState('');
     const [isHomeBtnDisabled, setHomeBtnDisable] = useState(true);
     const [isJoinBtnDisabled, setJoinBtnDisable] = useState(true);
+    const [userName, setuserName] = useState('');
 
     const socket = useContext(SocketContext);
     const navigate = useNavigate();
@@ -32,14 +33,15 @@ function Home() {
         socket.on("users", users => {
             console.log(users)
         })
-    })
+    }, []);
 
     let create_room = () => {
         let room = Math.random().toString(20).substring(2, 7);
-        socket.emit("enter room", { userName: "Medsieeeee", room: room, avatarIndex: selectedAvatarIndex }, err => {
+        socket.emit("enter room", { userName: userName, room: room, avatarIndex: selectedAvatarIndex }, err => {
             console.log(err);
-        });   
-        navigate("/room");
+        });
+        // sending room id to Dashboard component
+        navigate("/dashboard",{state:{room: room}});
     }
 
     let join_room = () => {
@@ -58,6 +60,7 @@ function Home() {
 
     let handleUserName = (e) => {
         (!e.target.value.replace(/\s/g, '').length) ? setHomeBtnDisable(true) : setHomeBtnDisable(false);
+        setuserName(e.target.value);
     }
 
     return (
@@ -76,6 +79,7 @@ function Home() {
                 </div>
                 <div className="userNameContainer">
                     <TextField error={false} required id="standard-basic" label="Display Name" variant="standard"
+                        value={userName}
                         inputProps={{ maxLength: 20 }}
                         onChange={handleUserName} />
                 </div>
@@ -99,8 +103,8 @@ function Home() {
                             inputProps={{ maxLength: 5 }}
                             onChange={handleRoomID} />
                         <div className='join_btn_grp'>
-                            <button className="cancel_btn" onClick={() => {setJoinRoom(false); setJoinBtnDisable(true)}}><Clear /></button>
-                            <button className="next_btn" onClick={() => navigate("/room")} disabled={isJoinBtnDisabled}><Send /></button>
+                            <button className="cancel_btn" onClick={() => { setJoinRoom(false); setJoinBtnDisable(true) }}><Clear /></button>
+                            <button className="next_btn" onClick={() => navigate("/dashboard")} disabled={isJoinBtnDisabled}><Send /></button>
                         </div>
                     </div>
                 }

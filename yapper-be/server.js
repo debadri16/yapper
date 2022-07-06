@@ -43,7 +43,8 @@ io.on('connection', (socket) => {
     socket.leave(room);
 
     // inform everyone else
-    socket.in(room).emit('user left', getUserDetail(room, socket.id));
+    socket.in(room).emit('user left', socket.id);
+    console.log('user left');
   });
 
   // getting kicked
@@ -57,8 +58,8 @@ io.on('connection', (socket) => {
     socket.in(room).emit('user kicked', getUserDetail(room, socket.id));
   });
 
-   // getting banned
-   socket.on("ban user", (room, userId) => {
+  // getting banned
+  socket.on("ban user", (room, userId) => {
     banUser(room, userId);
     // need to test this line
     socket.id = userId;
@@ -75,7 +76,9 @@ io.on('connection', (socket) => {
     let room = disconnectUser(socket.id);
 
     // inform everyone else
-    socket.in(room).emit('user left', getUserDetail(room, socket.id));
+    if (room !== null) {
+      socket.in(room).emit('user left', socket.id);
+    }
 
     console.log('user disconnected');
   });
