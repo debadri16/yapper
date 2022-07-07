@@ -42,6 +42,7 @@ function Home() {
         });
         // sending room id to Dashboard component
         navigate("/dashboard",{state:{room: room}});
+        // navigate("/dashboard");
     }
 
     let join_room = () => {

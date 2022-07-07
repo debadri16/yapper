@@ -22,7 +22,7 @@ export default function Dashboard() {
         console.log(state.room);
     }, []);
 
-    // browser explicit back button click handle
+    // // browser explicit back button click handle
     useEffect(() => {
         window.addEventListener('popstate', (e)=>explicitLeaveUser(e));
         return () => {

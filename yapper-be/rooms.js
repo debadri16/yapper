@@ -56,6 +56,7 @@ const usersCleanup = (userId) => {
 }
 
 const removeUser = (room, userId) => {
+    console.log(room, userId);
     delete rooms[room][userId];
 
     // remove user only if not banned
