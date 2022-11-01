@@ -32,7 +32,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </SocketContext.Provider>

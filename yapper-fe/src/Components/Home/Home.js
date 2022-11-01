@@ -12,10 +12,12 @@ import UpdateAvatarDialog from "../Dialogs/UpdateAvatarDialog";
 import { avatarsList } from "../../Common/AvatarsList";
 import defaultAvatar from "../../assets/avatars/01.png";
 import { SocketContext } from "../../App";
+import Dashboard from "../Dashboard/Dashboard";
 
 function Home() {
 
     const [editAvatar, setEditAvatar] = useState(false);
+    const [loggedIn, setloggedIn] = useState(false);
 
     // persisting index of avatar from dialog
     const [selectedAvatarIndex, setAvatarIndex] = useState(0);
@@ -37,12 +39,15 @@ function Home() {
 
     let create_room = () => {
         let room = Math.random().toString(20).substring(2, 7);
+        setRoomID(room);
         socket.emit("enter room", { userName: userName, room: room, avatarIndex: selectedAvatarIndex }, err => {
             console.log(err);
         });
         // sending room id to Dashboard component
-        navigate("/dashboard",{state:{room: room}});
+        // navigate("/dashboard",{state:{room: room}});
         // navigate("/dashboard");
+
+        setloggedIn(true);
     }
 
     let join_room = () => {
@@ -66,11 +71,11 @@ function Home() {
 
     return (
         <div className="bgDiv">
-            {editAvatar &&
+            {editAvatar && !loggedIn &&
                 <UpdateAvatarDialog handleClose={() => setEditAvatar(false)} selectedAvatarIndex={selectedAvatarIndex}
                     handleAvatarChange={setAvatarIndex} />
             }
-            <div className="loginContainer">
+            {!loggedIn && <div className="loginContainer">
                 <div className="imgDiv" onClick={() => setEditAvatar(true)}>
                     <img className="homeAvatar"
                         // avatarlist imports are async, using default image if they are not loaded
@@ -105,11 +110,14 @@ function Home() {
                             onChange={handleRoomID} />
                         <div className='join_btn_grp'>
                             <button className="cancel_btn" onClick={() => { setJoinRoom(false); setJoinBtnDisable(true) }}><Clear /></button>
-                            <button className="next_btn" onClick={() => navigate("/dashboard")} disabled={isJoinBtnDisabled}><Send /></button>
+                            <button className="next_btn" onClick={() => console.log("joined clicked")} disabled={isJoinBtnDisabled}><Send /></button>
                         </div>
                     </div>
                 }
-            </div>
+            </div>}
+
+            {loggedIn && <Dashboard userName={userName} room={roomID} avatarIndex={selectedAvatarIndex} />}
+
         </div>
     );
 }

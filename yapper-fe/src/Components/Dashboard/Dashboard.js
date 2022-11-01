@@ -13,28 +13,12 @@ import defaultAvatar from "../../assets/avatars/01.png";
 import { SocketContext } from "../../App";
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export default function Dashboard() {
+export default function Dashboard(props) {
     const socket = useContext(SocketContext);
-    const navigate = useNavigate();
-    const { state } = useLocation();
 
     useEffect(() => {
-        console.log(state.room);
+        console.log(props);
     }, []);
-
-    // // browser explicit back button click handle
-    useEffect(() => {
-        window.addEventListener('popstate', (e)=>explicitLeaveUser(e));
-        return () => {
-            window.removeEventListener('popstate', (e)=>explicitLeaveUser(e));
-        };
-    }, []);
-
-    const explicitLeaveUser = (e) => {
-        socket.emit("leave room", state.room, err => {
-            console.log(err);
-        });
-    }
 
     return (
         <div>This is Dashboard</div>
