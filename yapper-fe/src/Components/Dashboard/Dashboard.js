@@ -21,6 +21,9 @@ export default function Dashboard(props) {
     }, []);
 
     return (
-        <div>This is Dashboard</div>
+        <div className='dashboardParent'>
+            <div className='leftDiv'></div>
+            <div className='rightDiv'></div>
+        </div>
     );
 }
