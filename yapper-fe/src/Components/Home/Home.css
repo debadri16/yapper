@@ -1,0 +1,184 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.bgDiv {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e8e8e8;
+}
+
+.loginContainer {
+    height: 70%;
+    width: 30%;
+    background: #e8e8e8;
+    box-shadow: 24px 24px 51px #cacaca,
+        -24px -24px 51px #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-detils {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px 20px 0px;
+}
+
+.login-details-grp {
+    display: block;
+}
+
+.imgDiv {
+    height: 100px;
+    width: 100px;
+    margin-top: 10%;
+    border-radius: 100%;
+    position: relative;
+    box-shadow:  -5px -5px 10px #ffffff, 2px 2px 10px #a2a9ac;
+}
+
+.homeAvatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    transition: opacity ease .3s;
+}
+
+.avatarEditBtn{
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    display: none !important;
+}
+
+.imgDiv:hover {
+    border: 3px solid rgb(99 102 108);
+    cursor: pointer;
+}
+
+.imgDiv:hover .homeAvatar{
+    opacity: 0.4;
+}
+
+.imgDiv:hover .avatarEditBtn{
+    display: block !important;
+}
+
+.userNameContainer {
+    padding: 10px;
+}
+
+.homeBtnDiv {
+    padding: 10px;
+}
+
+.homeBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 40px;
+    border: none;
+    outline: none;
+    background: #e8e8e8;
+    box-shadow: -2px -2px 3px #fffefe, 2px 2px 3px #bec8ce;
+    font-family: sans-serif;
+    color: #2ab296;
+    font-weight: bold;
+    cursor: pointer;
+    transition: box-shadow ease .3s;
+}
+
+.homeBtn:hover {
+    box-shadow: -4px -4px 4px #fffefe, 4px 4px 4px #bec8ce;
+}
+
+.homeBtn:disabled {
+    opacity: 0.5;
+    box-shadow: -4px -4px 4px #fffefe, 4px 4px 4px #bec8ce;
+}
+
+.btnIcon {
+    margin-left: 3%;
+}
+
+.joinRoomDiv{
+    padding: 10px;
+}
+
+.join_btn_grp{
+    display: flex;
+    justify-content: space-between; 
+    padding: 10px;
+}
+
+.cancel_btn, .next_btn{
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    width: 35px;
+    height: 35px;
+    background: #e8e8e8;
+    box-shadow: -2px -2px 3px #ffffff, 2px 2px 3px #b7bec3;
+    transition: box-shadow ease .3s;
+}
+
+.cancel_btn:hover, .next_btn:hover{
+    box-shadow: -4px -4px 4px #fffefe, 4px 4px 4px #b7bec3;
+}
+
+.cancel_btn{
+    color: rgb(215 91 91);
+    size: 10px;
+    /* padding-left: 3px; */
+    padding-top: 3px;
+}
+
+.next_btn{
+    color: #2ab296;
+    padding-left: 3px;
+    padding-top: 3px;
+}
+
+.next_btn:disabled{
+    opacity: 0.5;
+    box-shadow: -2px -2px 3px #ffffff, 2px 2px 3px #b7bec3;
+}
+
+/* For mobile phones: */
+@media only screen and (max-width: 768px) {
+    .loginContainer {
+        height: 70%;
+        width: 70%;
+        background: #e8e8e8;
+        box-shadow: 24px 24px 51px #cacaca,
+            -24px -24px 51px #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* for tablets */
+@media only screen and (max-width: 992px) and (min-width: 768px) {
+    .loginContainer {
+        height: 70%;
+        width: 50%;
+        background: #e8e8e8;
+        box-shadow: 24px 24px 51px #cacaca,
+            -24px -24px 51px #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
