@@ -6,15 +6,14 @@ import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import Send from '@mui/icons-material/Send';
 import Clear from '@mui/icons-material/Clear';
 
-import './Dashboard.css';
+import './ChatInterface.css';
 import UpdateAvatarDialog from "../Dialogs/UpdateAvatarDialog";
 import { avatarsList } from "../../Common/AvatarsList";
 import defaultAvatar from "../../assets/avatars/01.png";
 import { SocketContext } from "../../App";
 import { useLocation, useNavigate } from 'react-router-dom';
-import ChatInterface from "../ChatInterface/ChatInterface";
 
-export default function Dashboard(props) {
+export default function ChatInterface(props) {
     const socket = useContext(SocketContext);
 
     useEffect(() => {
@@ -22,10 +21,16 @@ export default function Dashboard(props) {
     }, []);
 
     return (
-        <div className='dashboardParent'>
-            <div className='leftDiv'></div>
-            <div className='rightDiv'>
-                <ChatInterface></ChatInterface>
+        <div className='chatInterface'>
+            <div className='chatSpace'></div>
+            <div className='textSpace'>
+                <div className='textBox'>
+                    <TextField required id="standard-basic" placeholder="Type your message..." variant="standard" fullWidth multiline rows={1} InputProps={{ disableUnderline: true }} />
+                </div>
+                <div className='textSendBtn'>
+                    <button className="next_btn btn_resize"><Send /></button>
+                </div>
+
             </div>
         </div>
     );
