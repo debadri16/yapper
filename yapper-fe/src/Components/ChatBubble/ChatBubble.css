@@ -1,0 +1,48 @@
+.chatBubbleParent {
+    width: 40%;
+    /* height: 8%; */
+    /* border-radius: 30px; */
+    margin: 2%;
+    /* box-shadow: 5px 5px 20px #cacaca,
+        -5px -5px 20px #ffffff; */
+    display: flex;
+}
+
+.chatBubbleAvatar {
+    /* flex: 1; */
+    /* placeholder for avatar */
+    border-radius: 100%;
+    background: #919191;
+    margin-right: 3%;
+    height: 50px;
+    width: 50px;
+}
+
+.chatBubbleTxt {
+    flex: 6;
+    color: #727272;
+    font-weight: 600;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 5px 5px 20px #cacaca,
+        -5px -5px 20px #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 4%;
+}
+
+.chatBubbleTxtSelf {
+    flex: 6;
+    background: #4170f3;
+    font-weight: 600;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    /* box-shadow: 5px 5px 20px #cacaca,
+        -5px -5px 20px #ffffff; */
+    display: flex;
+    align-items: center;
+    padding: 4%;
+    color: white;
+}

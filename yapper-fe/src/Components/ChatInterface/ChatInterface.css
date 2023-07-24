@@ -7,6 +7,8 @@
 
 .chatSpace{
     flex: 8;
+    display: flex;
+    flex-direction: column;
 }
 
 .textSpace{

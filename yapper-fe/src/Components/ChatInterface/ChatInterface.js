@@ -12,6 +12,7 @@ import { avatarsList } from "../../Common/AvatarsList";
 import defaultAvatar from "../../assets/avatars/01.png";
 import { SocketContext } from "../../App";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ChatBubbleOthers, ChatBubbleSelf } from "../ChatBubble/ChatBubble";
 
 export default function ChatInterface(props) {
     const socket = useContext(SocketContext);
@@ -22,7 +23,11 @@ export default function ChatInterface(props) {
 
     return (
         <div className='chatInterface'>
-            <div className='chatSpace'></div>
+            <div className='chatSpace'>
+                <ChatBubbleOthers message={"Other user text"} />
+                <ChatBubbleOthers message={"Other user text but it is very long to test the multilineheight adjustment. Might need to fix maxHeight. Will do later. Whassup Medsie!"} />
+                <ChatBubbleSelf message={"Current user text"} />
+            </div>
             <div className='textSpace'>
                 <div className='textBox'>
                     <TextField required id="standard-basic" placeholder="Type your message..." variant="standard" fullWidth multiline rows={1} InputProps={{ disableUnderline: true }} />
