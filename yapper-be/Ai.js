@@ -6,8 +6,10 @@ import { LlamaModel, LlamaContext, LlamaChatSession } from "node-llama-cpp";
 
 async function LLMChat() {
     const model = new LlamaModel({
-        modelPath: "E:/LLMs/llama-2-7b.Q5_K_M.gguf",
-        gpuLayers: 25
+        modelPath: "E:/LLMs/mistral-7b-v0.1.Q6_K.gguf",
+        gpuLayers: 33,
+        topK: 0,
+        temperature: 0.8
     });
     const context = new LlamaContext({ model });
     const session = new LlamaChatSession({ context });
@@ -20,11 +22,17 @@ async function LLMChat() {
     console.log("AI: " + a1);
 
 
-    const q2 = "What is the biggest carnivore?";
+    const q2 = "Give me an example of NEON SIMD optimized code for GEMM in C++?";
     console.log("User: " + q2);
 
     const a2 = await session.prompt(q2);
     console.log("AI: " + a2);
+
+    const q3 = "Tell me a poem about Toyota";
+    console.log("User: " + q3);
+
+    const a3 = await session.prompt(q3);
+    console.log("AI: " + a3);
 }
 
 export default LLMChat;
