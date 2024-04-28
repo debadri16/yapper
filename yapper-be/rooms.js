@@ -98,4 +98,4 @@ const getUserDetail = (room, userId) => {
     return rooms[room][userId];
 }
 
-module.exports = { addUser, removeUser, getUsers, disconnectUser, banUser, getUserDetail };
+export { addUser, removeUser, getUsers, disconnectUser, banUser, getUserDetail };

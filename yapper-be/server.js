@@ -1,15 +1,21 @@
-const express = require('express');
+import express from 'express';
+import LLMChat from './Ai.js';
+import { addUser, removeUser, getUsers, disconnectUser, banUser, getUserDetail } from './rooms.js';
+import { createServer } from 'http';
+import { Server } from "socket.io";
+
 const app = express();
-const http = require('http');
-const server = http.createServer(app);
-const { Server } = require("socket.io");
+
+const server = createServer(app);
+
 const io = new Server(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
   }
 });
-const { addUser, removeUser, getUsers, disconnectUser, banUser, getUserDetail } = require('./rooms');
+
+LLMChat().then();
 
 // check for auth
 io.use((socket, next) => {
