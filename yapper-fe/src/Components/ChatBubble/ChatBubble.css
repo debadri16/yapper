@@ -46,3 +46,14 @@
     padding: 4%;
     color: white;
 }
+
+.chatBroadcastParent {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    justify-content: center;
+}
+.chatBroadcastTxt {
+    font-weight: 400;
+    color: #9E9E9E;
+}

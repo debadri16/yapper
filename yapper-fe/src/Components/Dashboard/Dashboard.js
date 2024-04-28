@@ -5,6 +5,7 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import Send from '@mui/icons-material/Send';
 import Clear from '@mui/icons-material/Clear';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import './Dashboard.css';
 import UpdateAvatarDialog from "../Dialogs/UpdateAvatarDialog";
@@ -23,9 +24,11 @@ export default function Dashboard(props) {
 
     return (
         <div className='dashboardParent'>
-            <div className='leftDiv'></div>
+            <div className='leftDiv'>
+                <button><LogoutIcon /></button>
+            </div>
             <div className='rightDiv'>
-                <ChatInterface></ChatInterface>
+                <ChatInterface userName={props.userName} room={props.room}></ChatInterface>
             </div>
         </div>
     );

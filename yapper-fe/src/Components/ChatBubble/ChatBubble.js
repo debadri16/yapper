@@ -45,3 +45,15 @@ export function ChatBubbleSelf(props) {
         </div>
     );
 }
+
+export function ChatBroadcast(props) {
+    const socket = useContext(SocketContext);
+
+    return (
+        <div className='chatBubbleParent chatBroadcastParent'>
+            <div className='chatBroadcastTxt'>
+                <strong style={{color: "#2ab296"}}>{props.userName}</strong>{props.message}<strong>{props.room}</strong>
+            </div>
+        </div>
+    );
+}
