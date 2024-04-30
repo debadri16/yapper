@@ -16,10 +16,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export function ChatBubbleOthers(props) {
     const socket = useContext(SocketContext);
 
-    useEffect(() => {
-        console.log(props);
-    }, []);
-
     return (
         <div className='chatBubbleParent'>
             <div className='chatBubbleAvatar'></div>
@@ -33,10 +29,6 @@ export function ChatBubbleOthers(props) {
 export function ChatBubbleSelf(props) {
     const socket = useContext(SocketContext);
 
-    useEffect(() => {
-        console.log(props);
-    }, []);
-
     return (
         <div className='chatBubbleParent' style={{ marginLeft: "auto" }}>
             <div className='chatBubbleTxtSelf'>
@@ -48,11 +40,17 @@ export function ChatBubbleSelf(props) {
 
 export function ChatBroadcast(props) {
     const socket = useContext(SocketContext);
+    const EnterMsgComp = () =>
+        <><strong>{props.userName}</strong> has <strong style={{ color: "#2ab296" }}>entered</strong> room: <strong>{props.room}</strong></>
+
+    const LeftMsgComp = () =>
+        <><strong>{props.userName}</strong> has <strong style={{ color: "rgb(215 91 91)" }}>left</strong> room: <strong>{props.room}</strong></>
 
     return (
         <div className='chatBubbleParent chatBroadcastParent'>
             <div className='chatBroadcastTxt'>
-                <strong style={{color: "#2ab296"}}>{props.userName}</strong>{props.message}<strong>{props.room}</strong>
+                {props.type === "new" && <EnterMsgComp />}
+                {props.type === "left" && <LeftMsgComp />}
             </div>
         </div>
     );

@@ -15,7 +15,7 @@ const io = new Server(server, {
   }
 });
 
-LLMChat().then();
+// LLMChat().then();
 
 // check for auth
 io.use((socket, next) => {
@@ -39,8 +39,11 @@ io.on('connection', (socket) => {
     // joining in the room
     socket.join(user.room);
 
+    // send newly joined user's details to everyone else
+    socket.in(user.room).emit('new user', {...user, userId: socket.id});
+
     // send users data of that room to everyone in the room
-    io.in(user.room).emit('users', getUsers(user.room))
+    // io.in(user.room).emit('users', getUsers(user.room))
   });
 
   // for explicit leaving
@@ -75,15 +78,22 @@ io.on('connection', (socket) => {
     socket.in(room).emit('user banned', getUserDetail(room, socket.id));
   });
 
+   // sending message
+   socket.on("send text", (room, txt) => {
+    console.log("msg received from room: " + room + " by: " + socket.id + " msg: " + txt);
+    // send to everyone else
+    socket.in(room).emit('receive text', {...getUserDetail(room, socket.id), txt});
+  });
+
   // disconnect event listener
   // socket room will be automatically be left when this event is emitted
   socket.on('disconnect', () => {
     // just clearing custom objects
-    let room = disconnectUser(socket.id);
+    let userDetails = disconnectUser(socket.id);
 
     // inform everyone else
-    if (room !== null) {
-      socket.in(room).emit('user left', socket.id);
+    if (userDetails !== null) {
+      socket.in(userDetails.room).emit('user left', userDetails);
     }
 
     console.log('user disconnected');
