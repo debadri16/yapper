@@ -11,7 +11,7 @@ let rooms = {};
 //////////////////////////////
 
 let users = {};
-// structure of rooms ////////
+// structure of users ////////
 // {
 //     userId:{
 //         room: {
@@ -76,9 +76,9 @@ const disconnectUser = (userId) => {
     // if someone reloads the page or clicks back button then the socket.id will change
     if (users[userId] !== undefined) {
         let room = Object.keys(users[userId])[0];
-
+        let userDetails = {...rooms[room][userId], room, userId}
         removeUser(room, userId);
-        return room;
+        return userDetails;
     }
     return null;
 }
@@ -95,7 +95,8 @@ const getUsers = (room) => {
 }
 
 const getUserDetail = (room, userId) => {
-    return rooms[room][userId];
+    // sending userId (socket.id) might be a security threat. Will have to verify
+    return {...rooms[room][userId], userId};
 }
 
 export { addUser, removeUser, getUsers, disconnectUser, banUser, getUserDetail };

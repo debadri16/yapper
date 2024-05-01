@@ -30,13 +30,6 @@ function Home() {
     const socket = useContext(SocketContext);
     const navigate = useNavigate();
 
-    // will listen to server to get all users from the room when new user is added
-    useEffect(() => {
-        socket.on("users", users => {
-            console.log(users)
-        })
-    }, []);
-
     let create_room = () => {
         let room = Math.random().toString(20).substring(2, 7);
         setRoomID(room);
@@ -51,7 +44,6 @@ function Home() {
     }
 
     let join_room = () => {
-        console.log('join');
         setJoinRoom(true);
         setRoomID('');
     }
@@ -67,6 +59,15 @@ function Home() {
     let handleUserName = (e) => {
         (!e.target.value.replace(/\s/g, '').length) ? setHomeBtnDisable(true) : setHomeBtnDisable(false);
         setuserName(e.target.value);
+    }
+
+    const onRoomJoin = () => {
+    
+        socket.emit("enter room", { userName: userName, room: roomID, avatarIndex: selectedAvatarIndex }, err => {
+            console.log(err);
+        });
+
+        setloggedIn(true);
     }
 
     return (
@@ -110,7 +111,7 @@ function Home() {
                             onChange={handleRoomID} />
                         <div className='join_btn_grp'>
                             <button className="cancel_btn" onClick={() => { setJoinRoom(false); setJoinBtnDisable(true) }}><Clear /></button>
-                            <button className="next_btn" onClick={() => console.log("joined clicked")} disabled={isJoinBtnDisabled}><Send /></button>
+                            <button className="next_btn" onClick={onRoomJoin} disabled={isJoinBtnDisabled}><Send /></button>
                         </div>
                     </div>
                 }

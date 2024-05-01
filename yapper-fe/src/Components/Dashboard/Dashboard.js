@@ -18,10 +18,6 @@ import ChatInterface from "../ChatInterface/ChatInterface";
 export default function Dashboard(props) {
     const socket = useContext(SocketContext);
 
-    useEffect(() => {
-        console.log(props);
-    }, []);
-
     return (
         <div className='dashboardParent'>
             <div className='leftDiv'>
