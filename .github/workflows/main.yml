@@ -1,0 +1,22 @@
+name: CD
+on:
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy:
+    # Runs on self hosted runner
+    runs-on: self-hosted
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      # Copy yapper-be
+      - name: Copy all files to yapper-server directory
+        run: |
+          cd yapper-be
+          cp -r . /home/debadri16/yapper-server/
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          cd /home/debadri16/yapper-server/
+          npm install
